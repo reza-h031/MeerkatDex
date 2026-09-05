@@ -15,7 +15,7 @@ class AppModule {
     @Provides
     fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl("test")
+            .baseUrl("http://10.18.225.47:8080/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 }

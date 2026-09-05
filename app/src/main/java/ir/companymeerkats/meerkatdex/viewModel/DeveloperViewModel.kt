@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DeveloperViewModel  (
-    @Inject val developerRepository: DeveloperProvider
+class DeveloperViewModel  @Inject  constructor(
+    val developerRepository: DeveloperProvider
 ) :ViewModel(){
      val getDevelopers:StateFlow<UiState<List<Developer>>> =
          developerRepository.getDevelopers()

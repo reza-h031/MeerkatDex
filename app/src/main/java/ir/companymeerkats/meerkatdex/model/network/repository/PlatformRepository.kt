@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class PlatformRepository(@Inject
+class PlatformRepository @Inject constructor(
     val platformsService: PlatformsService,
     val webPlatformMapper: WebPlatformMapper
 ) : PlatformProvider{

@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel(
-    @Inject val gameRepository: GameProvider
+class GameViewModel @Inject  constructor(
+     val gameRepository: GameProvider
 ):ViewModel (){
     val getGames: StateFlow<UiState<List<Game>>> =
         gameRepository.getGames()

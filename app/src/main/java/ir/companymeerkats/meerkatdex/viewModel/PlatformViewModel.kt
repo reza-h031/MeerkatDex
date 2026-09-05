@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PlatformViewModel(
-    @Inject  val platformRepository: PlatformProvider
+class PlatformViewModel @Inject  constructor(
+      val platformRepository: PlatformProvider
 ) : ViewModel(){
     val getPlatforms: StateFlow<UiState<List<Platform>>> =
         platformRepository.getPlatforms()

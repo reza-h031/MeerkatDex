@@ -7,7 +7,7 @@ import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebDeveloperMapper
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class DeveloperRepository(@Inject
+class DeveloperRepository @Inject constructor(
     val developerService: DeveloperService,
     val webDeveloperMapper: WebDeveloperMapper
 ):DeveloperProvider {

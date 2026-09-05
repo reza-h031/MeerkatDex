@@ -9,7 +9,7 @@ data class WebPublisher (
     @SerializedName("name")
     val name :String,
     @SerializedName("logo")
-    val logo :String,
+    val logo :String?,
     @SerializedName("website")
-    val website :String
+    val website :String?
 ):Serializable

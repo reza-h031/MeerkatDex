@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GenreViewModel(
-    @Inject val genreRepository: GenreProvider
+class GenreViewModel @Inject  constructor(
+     val genreRepository: GenreProvider
 ) : ViewModel(){
     val getGenre: StateFlow<UiState<List<Genre>>> =
         genreRepository.getGenres()

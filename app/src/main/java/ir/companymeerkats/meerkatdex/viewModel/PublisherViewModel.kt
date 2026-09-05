@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PublisherViewModel(
-@Inject val publisherRepository: PublisherProvider
+class PublisherViewModel @Inject  constructor(
+ val publisherRepository: PublisherProvider
 ) : ViewModel(){
     val getPublishers: StateFlow<UiState<List<Publisher>>> =
         publisherRepository.getPublishers()

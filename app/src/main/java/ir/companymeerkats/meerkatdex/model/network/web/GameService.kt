@@ -6,8 +6,12 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface GameService {
+
     @GET("games")
-    fun getGames():Flow<List<WebGame>>
+    suspend fun getGames(): List<WebGame>
+
     @GET("games/{id}")
-    suspend fun getGameById(@Path("id") id:Long):WebGame
+    suspend fun getGameById(
+        @Path("id") id: Long
+    ): WebGame
 }

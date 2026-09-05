@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GenreRepository(@Inject
+class GenreRepository @Inject constructor(
     val genresService: GenresService,
     val webGenreMapper: WebGenreMapper
 ):GenreProvider {

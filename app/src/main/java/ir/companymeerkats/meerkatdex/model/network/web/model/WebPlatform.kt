@@ -9,13 +9,13 @@ data class WebPlatform (
     @SerializedName("name")
     val name :String,
     @SerializedName("logo")
-    val logo :String,
+    val logo :String?,
     @SerializedName("version")
-    val version:String,
+    val version:String?,
     @SerializedName("release_date")
-    val releaseDate:String,
+    val releaseDate:String?,
     @SerializedName("download_size")
-    val downloadSize:String,
+    val downloadSize:String?,
     @SerializedName("requirement")
-    val requirement: WebGameRequirement
+    val requirement: WebGameRequirement?
 ):Serializable

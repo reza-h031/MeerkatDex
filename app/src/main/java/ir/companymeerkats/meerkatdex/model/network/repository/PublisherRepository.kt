@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class PublisherRepository (@Inject
+class PublisherRepository @Inject constructor(
     val publisherService: PublisherService,
     val webPublisherMapper: WebPublisherMapper
 ):PublisherProvider{
