@@ -76,9 +76,12 @@ dependencies {
 //    hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+//    hilt navigation
+    implementation(libs.androidx.hilt.navigation.compose)
 //    timber
     implementation(libs.timber)
-    implementation(libs.androidx.hilt.navigation.compose)
+//    material icon
+    implementation(libs.androidx.compose.material.icons.extended)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,6 +89,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
 kapt {
     correctErrorTypes=true

@@ -1,53 +1,96 @@
 package ir.companymeerkats.meerkatdex.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+
+// ─────────────────────────────────────────────
+// Dark Theme
+// ─────────────────────────────────────────────
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+
+    // Main accent → Purple
+    primary = Color(0xFF5737F6),
+    onPrimary = Color.White,
+
+    // Secondary purple
+    secondary = Color(0xFFA78BFA),
+    onSecondary = Color(0xFF1F1535),
+
+    // Orange remains as a small accent
+    tertiary = Color(0xFFFF8A50),
+    onTertiary = Color(0xFF3E1608),
+
+    // Background
+    background = Color(0xFF161311),
+    onBackground = Color(0xFFF2ECE6),
+
+    // Cards / surfaces
+    surface = Color(0xFF1F1B18),
+    onSurface = Color(0xFFF2ECE6),
+
+    surfaceVariant = Color(0xFF2A2521),
+    onSurfaceVariant = Color(0xFFC7B8AA),
+
+    // Dividers / borders
+    outline = Color(0xFF49413B),
+    outlineVariant = Color(0xFF342F2A)
 )
+
+
+// ─────────────────────────────────────────────
+// Light Theme
+// ─────────────────────────────────────────────
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    // Main accent → Orange
+    primary = Color(0xFFFF7043),
     onPrimary = Color.White,
+
+    // Secondary orange
+    secondary = Color(0xFFFF8A50),
     onSecondary = Color.White,
+
+    // Darker orange for additional accents
+    tertiary = Color(0xFFE85D35),
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+
+    // Background
+    background = Color(0xFFFFF7F0),
+    onBackground = Color(0xFF1F1B18),
+
+    // Cards / surfaces
+    surface = Color.White,
+    onSurface = Color(0xFF1F1B18),
+
+    surfaceVariant = Color(0xFFFFF1E8),
+    onSurfaceVariant = Color(0xFF6F6259),
+
+    // Dividers / borders
+    outline = Color(0xFFD8CCC4),
+    outlineVariant = Color(0xFFEDE2DA)
 )
+
+
+// ─────────────────────────────────────────────
+// Theme
+// ─────────────────────────────────────────────
 
 @Composable
 fun MeerkatDexTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colorScheme = if (darkTheme) {
+        DarkColorScheme
+    } else {
+        LightColorScheme
     }
 
     MaterialTheme(

@@ -1,4 +1,8 @@
 package ir.companymeerkats.meerkatdex.model
 
-class Playlist {
+data class Playlist (
+    val id:Long,
+    val name:String,
+    val games: List<SimpleGame>
+){
 }
