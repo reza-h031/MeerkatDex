@@ -10,6 +10,7 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -26,19 +27,19 @@ class PlatformViewModel @Inject  constructor(
             .map<List<Platform>, UiState<List<Platform>>>{
                 UiState.Success(it)
             }.onStart {
-                emit(UiState.loading)
+                emit(UiState.Loading)
             }.catch {
                 emit(UiState.Error(it.message?:"Unknown error"))
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.loading)
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.Loading)
 
-    val _platformState =
-        MutableStateFlow<UiState<Platform>>(UiState.loading)
+    private val _platformState =
+        MutableStateFlow<UiState<Platform>>(UiState.Loading)
 
-    val platformState: StateFlow<UiState<Platform>> =
-        _platformState
-    fun getPlatformById(id:Long): StateFlow<UiState<Platform>> {
+    val platformState =
+        _platformState.asStateFlow()
+    fun getPlatformById(id:Long){
         viewModelScope.launch {
-            _platformState.value = UiState.loading
+            _platformState.value = UiState.Loading
 
             try {
                 val platform = platformRepository.getPlatformById(id)
@@ -48,6 +49,5 @@ class PlatformViewModel @Inject  constructor(
                     UiState.Error(e.message ?: "Unknown error")
             }
         }
-        return platformState
     }
 }

@@ -9,6 +9,7 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -25,18 +26,18 @@ class PublisherViewModel @Inject  constructor(
             .map<List<Publisher>, UiState<List<Publisher>>>{
                 UiState.Success(it)
             }.onStart {
-                emit(UiState.loading)
+                emit(UiState.Loading)
             }.catch {
                 emit(UiState.Error(it.message?:"Unknown error"))
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.loading)
-    val _publisherState =
-        MutableStateFlow<UiState<Publisher>>(UiState.loading)
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.Loading)
+    private val _publisherState =
+        MutableStateFlow<UiState<Publisher>>(UiState.Loading)
 
-    val publisherState: StateFlow<UiState<Publisher>> =
-        _publisherState
-    fun getPublisherById(id:Long): StateFlow<UiState<Publisher>> {
+    val publisherState =
+        _publisherState.asStateFlow()
+    fun getPublisherById(id: Long) {
         viewModelScope.launch {
-            _publisherState.value = UiState.loading
+            _publisherState.value = UiState.Loading
 
             try {
                 val publisher = publisherRepository.getPublisherById(id)
@@ -46,6 +47,5 @@ class PublisherViewModel @Inject  constructor(
                     UiState.Error(e.message ?: "Unknown error")
             }
         }
-        return publisherState
     }
 }

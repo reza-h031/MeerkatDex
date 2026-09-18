@@ -9,6 +9,7 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -25,18 +26,18 @@ class GenreViewModel @Inject  constructor(
             .map<List<Genre>, UiState<List<Genre>>>{
                 UiState.Success(it)
             }.onStart {
-                emit(UiState.loading)
+                emit(UiState.Loading)
             }.catch {
                 emit(UiState.Error(it.message?:"Unknown error"))
-            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.loading)
-    val _genreState =
-        MutableStateFlow<UiState<Genre>>(UiState.loading)
+            }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.Loading)
+    private val _genreState =
+        MutableStateFlow<UiState<Genre>>(UiState.Loading)
 
-    val genreState: StateFlow<UiState<Genre>> =
-        _genreState
-    fun getGenreById(id:Long): StateFlow<UiState<Genre>> {
+    val genreState =
+        _genreState.asStateFlow()
+    fun getGenreById(id:Long) {
         viewModelScope.launch {
-            _genreState.value = UiState.loading
+            _genreState.value = UiState.Loading
 
             try {
                 val genre = genreRepository.getGenresById(id)
@@ -46,6 +47,5 @@ class GenreViewModel @Inject  constructor(
                     UiState.Error(e.message ?: "Unknown error")
             }
         }
-        return genreState
     }
 }

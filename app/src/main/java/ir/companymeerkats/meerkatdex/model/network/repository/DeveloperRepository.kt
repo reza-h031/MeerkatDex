@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class DeveloperRepository @Inject constructor(
-    val developerService: DeveloperService,
-    val webDeveloperMapper: WebDeveloperMapper
+    private val developerService: DeveloperService,
+    private val webDeveloperMapper: WebDeveloperMapper
 ):DeveloperProvider {
     override fun getDevelopers(): Flow<List<Developer>> {
         return developerService.getDevelopers().map{webDeveloper: List<WebDeveloper> ->

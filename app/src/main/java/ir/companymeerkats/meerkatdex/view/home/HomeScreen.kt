@@ -38,9 +38,6 @@ fun HomeScreen(
     playlist: List<Playlist>
     ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    var query by remember {
-        mutableStateOf("")
-    }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,7 +63,7 @@ fun HomeScreen(
 
                 }
                 items (items = playlist,
-                    key = { game -> game.id }) { playlist ->
+                    key = { playlist -> playlist.id }) { playlist ->
 
                     Spacer(
                         modifier = Modifier.height(12.dp)

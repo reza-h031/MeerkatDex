@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GameRepository @Inject constructor(
-    val gameService: GameService,
-    val webGameMapper: WebGameMapper
+    private val gameService: GameService,
+    private val webGameMapper: WebGameMapper
 ):GameProvider{
     override fun getGames(): Flow<List<Game>> {
         return flow {

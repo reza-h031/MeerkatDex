@@ -49,11 +49,6 @@ class NetworkModule {
     fun provideDeveloperRepository(developerService: DeveloperService,webDeveloperMapper: WebDeveloperMapper):DeveloperRepository{
         return DeveloperRepository(developerService,webDeveloperMapper)
     }
-    @Singleton
-    @Provides
-    fun developerViewModel(developerRepository: DeveloperRepository):DeveloperViewModel{
-        return DeveloperViewModel(developerRepository)
-    }
 //    genres
 
     @Provides
@@ -69,11 +64,6 @@ class NetworkModule {
     @Provides
     fun provideGenresRepository(genresService: GenresService,webGenresMapper: WebGenreMapper): GenreRepository {
         return GenreRepository(genresService,webGenresMapper)
-    }
-    @Singleton
-    @Provides
-    fun genreViewModel(genreRepository: GenreRepository): GenreViewModel {
-        return GenreViewModel(genreRepository)
     }
 //    platform
 
@@ -91,11 +81,6 @@ class NetworkModule {
     fun providePlatformRepository(platformService: PlatformsService,webPlatformMapper: WebPlatformMapper): PlatformRepository {
         return PlatformRepository(platformService,webPlatformMapper)
     }
-    @Singleton
-    @Provides
-    fun platformViewModel(platformRepository: PlatformRepository):PlatformViewModel{
-        return PlatformViewModel(platformRepository)
-    }
 //    publisher
 
     @Provides
@@ -111,11 +96,6 @@ class NetworkModule {
     @Provides
     fun providePublisherRepository(publisherService: PublisherService,webPublisherMapper: WebPublisherMapper): PublisherRepository {
         return PublisherRepository(publisherService,webPublisherMapper)
-    }
-    @Singleton
-    @Provides
-    fun publisherViewModel(publisherRepository: PublisherRepository):PublisherViewModel{
-        return PublisherViewModel(publisherRepository)
     }
 //    game
     @Provides
@@ -138,11 +118,6 @@ class NetworkModule {
     @Provides
     fun provideGameRepository(gameService: GameService,webGameMapper: WebGameMapper): GameRepository {
         return GameRepository(gameService,webGameMapper)
-    }
-    @Singleton
-    @Provides
-    fun gameViewModel(gameRepository: GameRepository):GameViewModel{
-        return GameViewModel(gameRepository)
     }
 
 //    webService

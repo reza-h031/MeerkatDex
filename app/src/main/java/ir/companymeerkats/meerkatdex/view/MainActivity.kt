@@ -65,7 +65,7 @@ fun SetDataViewModelTest(modifier: Modifier = Modifier){
 
     when (val state = gameState) {
 
-        UiState.loading -> {
+        UiState.Loading -> {
             Timber.tag("@testGame").e("loading" )
             CircularProgressIndicator()
         }

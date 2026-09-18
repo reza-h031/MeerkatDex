@@ -10,6 +10,7 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -26,18 +27,18 @@ class DeveloperViewModel  @Inject  constructor(
              .map<List<Developer>,UiState<List<Developer>>>{
                  UiState.Success(it)
              }.onStart {
-                 emit(UiState.loading)
+                 emit(UiState.Loading)
              }.catch {
                  emit(UiState.Error(it.message?:"Unknown error"))
-             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),UiState.loading)
-    val _developerState =
-        MutableStateFlow<UiState<Developer>>(UiState.loading)
+             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000),UiState.Loading)
+    private val _developerState =
+        MutableStateFlow<UiState<Developer>>(UiState.Loading)
 
-    val developerState: StateFlow<UiState<Developer>> =
-        _developerState
-    fun getDeveloperById(id:Long):StateFlow<UiState<Developer>>{
+    val developerState=
+        _developerState.asStateFlow()
+    fun getDeveloperById(id:Long){
         viewModelScope.launch {
-            _developerState.value = UiState.loading
+            _developerState.value = UiState.Loading
 
             try {
                 val developer = developerRepository.getDeveloperById(id)
@@ -47,6 +48,5 @@ class DeveloperViewModel  @Inject  constructor(
                     UiState.Error(e.message ?: "Unknown error")
             }
         }
-        return developerState
     }
 }

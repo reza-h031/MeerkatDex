@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PlatformRepository @Inject constructor(
-    val platformsService: PlatformsService,
-    val webPlatformMapper: WebPlatformMapper
+    private val platformsService: PlatformsService,
+    private val webPlatformMapper: WebPlatformMapper
 ) : PlatformProvider{
     override fun getPlatforms(): Flow<List<Platform>> {
         return platformsService.getPlatforms().map { webPlatform: List<WebPlatform> -> webPlatform.map (webPlatformMapper::toPlatform) }

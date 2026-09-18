@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class PublisherRepository @Inject constructor(
-    val publisherService: PublisherService,
-    val webPublisherMapper: WebPublisherMapper
+    private val publisherService: PublisherService,
+    private val webPublisherMapper: WebPublisherMapper
 ):PublisherProvider{
     override fun getPublishers(): Flow<List<Publisher>> {
         return publisherService.getPublishers().map{webPublisher: List<WebPublisher> -> webPublisher.map(webPublisherMapper::toPublisher) }

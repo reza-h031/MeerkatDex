@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GenreRepository @Inject constructor(
-    val genresService: GenresService,
-    val webGenreMapper: WebGenreMapper
+    private val genresService: GenresService,
+    private val webGenreMapper: WebGenreMapper
 ):GenreProvider {
     override fun getGenres(): Flow<List<Genre>> {
         return genresService.getGenres().map { webGenre: List<WebGenre> -> webGenre.map(webGenreMapper::toGenre) }
