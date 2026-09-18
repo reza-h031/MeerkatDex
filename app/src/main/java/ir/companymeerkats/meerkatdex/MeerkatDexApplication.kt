@@ -59,15 +59,20 @@ class MeerkatDexApplication:Application() {
                 games = featuredGames
             ),
             Playlist(
-                id = 1,
+                id = 2,
                 name = "test1",
                 games = featuredGames
         ),
             Playlist(
-                id = 1,
+                id = 3,
                 name = "test2",
                 games = featuredGames
-            )
+            ),
+            Playlist(
+                id = 4,
+                name = "test2",
+                games = featuredGames
+            ),
         )
     }
 }

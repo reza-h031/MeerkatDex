@@ -1,19 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
-    kotlin("kapt")
+    alias(libs.plugins.legacy.kapt)
 }
 
 android {
     namespace = "ir.companymeerkats.meerkatdex"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "ir.companymeerkats.meerkatdex"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -33,11 +32,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true

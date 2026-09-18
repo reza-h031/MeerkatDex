@@ -55,8 +55,8 @@ fun HomeScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(
-                    horizontal = 16.dp,
-                    vertical = 16.dp
+                    horizontal = 12.dp,
+                    vertical = 12.dp
                 ),
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
@@ -65,7 +65,8 @@ fun HomeScreen(
 
 
                 }
-                items (playlist) { playlist ->
+                items (items = playlist,
+                    key = { game -> game.id }) { playlist ->
 
                     Spacer(
                         modifier = Modifier.height(12.dp)
