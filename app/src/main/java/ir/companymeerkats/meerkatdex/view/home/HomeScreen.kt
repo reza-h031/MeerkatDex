@@ -35,9 +35,11 @@ fun HomeScreen(
     onGameClick: (Long) -> Unit,
     onSearchClick: () -> Unit,
     featuredGames:List<SimpleGame>,
-    playlist: List<Playlist>
+    playlist: List<Playlist>,
+    onPlaylistClick: (Long) -> Unit,
     ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -62,7 +64,7 @@ fun HomeScreen(
 
 
                 }
-                items (items = playlist,
+                items (items = playlist.take(9),
                     key = { playlist -> playlist.id }) { playlist ->
 
                     Spacer(
@@ -70,30 +72,15 @@ fun HomeScreen(
                     )
 
                     GameSection(
+                        onClickSeeAll ={onPlaylistClick(playlist.id)},
                         playlist = playlist
                     )
                 }
+                item{
+                    HomeFooter()
+                }
             }
-
-
-
 
         }
     }
 
-//    Scaffold(
-//        topBar = {
-//            HomeTopBar(
-//                onMenuClick ={
-//                    scope.launch {
-//                    drawerState.open()
-//                }}
-//
-//                ,
-//                onSearchClick = onSearchClick
-//            )
-//        }
-//    ) { paddingValues ->
-//
-//        // Home Content
-//    }

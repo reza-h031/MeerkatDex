@@ -1,8 +1,13 @@
 package ir.companymeerkats.meerkatdex
 
 import android.app.Application
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import dagger.hilt.android.HiltAndroidApp
+import ir.companymeerkats.meerkatdex.model.GameRequirement
+import ir.companymeerkats.meerkatdex.model.Platform
 import ir.companymeerkats.meerkatdex.model.Playlist
+import ir.companymeerkats.meerkatdex.model.Requirement
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 import timber.log.Timber
 
@@ -10,12 +15,42 @@ import timber.log.Timber
 class MeerkatDexApplication:Application() {
     val featuredGames:List<SimpleGame> = createDataForTestListSimpleGame()
     val playlist:List<Playlist> = createDataForTestPlaylist()
+    val platformList:List<Platform> = createDataForTestListPlatform()
     override fun onCreate() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
     }
+    fun createDataForTestListPlatform(): List<Platform>{
+        return listOf(
+            Platform(0,
+                "android"
+                , R.drawable.android
+                ,"2.0.9"
+                , "2024"
+                , "100 mb"
+                , GameRequirement(0
+                , Requirement
+                (0,"4","andorid 12","cpu 16","rx 10","100 mb"),
+                    Requirement
+                        (0,"4","andorid 12","cpu 16","rx 10","100 mb"))
+                ),
+            Platform(1,
+                "iPhone"
+                , R.drawable.iphone
+                ,"2.0.9"
+                , "2024"
+                , "100 mb"
+                , GameRequirement(0
+                    , Requirement
+                        (0,"4","iphone 16","cpu 16","rx 10","100 mb"),
+                    Requirement
+                        (0,"4","iphone 16","cpu 16","rx 10","100 mb"))
+            )
+        )
+    }
     fun createDataForTestListSimpleGame():List<SimpleGame>{
+        val platformList:List<Platform> = createDataForTestListPlatform()
 
         return listOf(
             SimpleGame(
@@ -24,7 +59,8 @@ class MeerkatDexApplication:Application() {
                 imageCover = R.drawable.brawl_stars,
                 imageIcon = R.drawable.brawl_stars_icon,
                 rating = 4.5,
-                genres = listOf("Action", "Strategy", "Multiplayer")
+                genres = listOf("Action", "Strategy", "Multiplayer"),
+                platform= platformList
             ),
 
             SimpleGame(
@@ -33,7 +69,8 @@ class MeerkatDexApplication:Application() {
                 imageCover = R.drawable.minecraft,
                 imageIcon = R.drawable.minecraft_icon,
                 rating = 4.6,
-                genres = listOf("Adventure", "Sandbox")
+                genres = listOf("Adventure", "Sandbox"),
+                platform= platformList
             ),
 
             SimpleGame(
@@ -42,7 +79,8 @@ class MeerkatDexApplication:Application() {
                 imageCover = R.drawable.genshin_impact,
                 imageIcon = R.drawable.genshin_impact_icon,
                 rating = 4.4,
-                genres = listOf("RPG", "Adventure")
+                genres = listOf("RPG", "Adventure"),
+                platform= platformList
             )
         )
     }
@@ -51,28 +89,73 @@ class MeerkatDexApplication:Application() {
             Playlist(
                 id = 0,
                 name ="Popular games",
+                description = "",
+                number=100,
                 games = featuredGames
             ),
             Playlist(
                 id = 1,
                 name = "Recently Added",
+                description = "",
+                number=100,
                 games = featuredGames
             ),
             Playlist(
                 id = 2,
-                name = "test1",
+                name = "Top Rated",
+                description = "",
+                number=100,
                 games = featuredGames
         ),
             Playlist(
                 id = 3,
-                name = "test2",
+                name = "Action Games",
+                description = "",
+                number=100,
                 games = featuredGames
             ),
             Playlist(
                 id = 4,
-                name = "test2",
+                name = "Adventure Games",
+                description = "",
+                number=100,
                 games = featuredGames
             ),
+            Playlist(
+                id = 5,
+                name = "RPG Games",
+                description = "",
+                number=100,
+                games = featuredGames
+            ),
+            Playlist(
+                id = 6,
+                name = "Racing Games",
+                description = "",
+                number=100,
+                games = featuredGames
+            ),
+            Playlist(
+                id = 7,
+                name = "Sports Games",
+                description = "",
+                number=100,
+                games = featuredGames
+            ),
+            Playlist(
+                id = 8,
+                name = "Coming Soon",
+                description = "",
+                number=100,
+                games = featuredGames
+            ),
+            Playlist(
+                id = 9,
+                name = "test",
+                description = "",
+                number=100,
+                games = featuredGames
+            )
         )
     }
 }

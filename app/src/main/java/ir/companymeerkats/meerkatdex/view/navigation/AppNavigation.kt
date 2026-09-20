@@ -31,7 +31,10 @@ import androidx.navigation.NavHostController
 import ir.companymeerkats.meerkatdex.model.Playlist
 import ir.companymeerkats.meerkatdex.view.home.drawer.HomeDrawer
 import ir.companymeerkats.meerkatdex.model.SimpleGame
+import ir.companymeerkats.meerkatdex.view.playlist.PlaylistScreen
 import kotlinx.coroutines.launch
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 
 @ExperimentalMaterial3Api
 @Composable
@@ -95,6 +98,11 @@ fun AppNavigation(
                         navController.navigate(
                             Screen.Search.route
                         )
+                    },
+                    onPlaylistClick = { playlistId ->
+                        navController.navigate(
+                            Screen.Playlist.createRoute(playlistId)
+                        )
                     }
 
                 )
@@ -112,6 +120,38 @@ fun AppNavigation(
 //                        navController.popBackStack()
 //                    }
                 )
+            }
+            composable(
+                route = Screen.Playlist.route,
+                arguments = listOf(
+                    navArgument("playlistId") {
+                        type = NavType.LongType
+                    }
+                )
+            ) { backStackEntry ->
+
+                val playlistId =
+                    backStackEntry.arguments?.getLong("playlistId")
+
+                val selectedPlaylist =
+                    playlist.find { it.id == playlistId }
+
+                selectedPlaylist?.let { selectedPlaylist ->
+
+                    PlaylistScreen(
+                        playlist = selectedPlaylist,
+
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+
+                        onGameClick = { gameId ->
+                            navController.navigate(
+                                Screen.GameDetail.createRoute(gameId)
+                            )
+                        }
+                    )
+                }
             }
 
             composable(Screen.More.route) {

@@ -1,10 +1,13 @@
 package ir.companymeerkats.meerkatdex.view.home.gameSection
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,10 +23,12 @@ import ir.companymeerkats.meerkatdex.model.Playlist
 
 @Composable
 fun GameSection (
+    onClickSeeAll:()-> Unit,
     playlist: Playlist
 ){
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .padding(bottom = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -42,9 +47,12 @@ fun GameSection (
             text = "See All",
             color = MaterialTheme.colorScheme.primary,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier
+            .clickable(onClick = onClickSeeAll)
         )
     }
+
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -53,7 +61,8 @@ fun GameSection (
         )
     ) {
 
-        items(playlist.games) { game ->
+        items(items=playlist.games.take(6),
+            key = { game -> game.id }) { game ->
 
             GameCard(
                 game = game

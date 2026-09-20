@@ -1,0 +1,5 @@
+logo in platform int to string and set in mapper
+
+
+
+imageCover: Int,imageIcon:Int  in simple game int to string and create web and mapper 

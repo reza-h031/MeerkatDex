@@ -127,5 +127,8 @@ fun GameCard(
                 fontSize = 11.sp
             )
         }
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
     }
 }

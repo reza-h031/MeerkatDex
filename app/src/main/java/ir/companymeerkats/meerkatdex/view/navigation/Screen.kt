@@ -15,4 +15,9 @@ sealed class Screen(
             return "game/$gameId"
         }
     }
+    data object Playlist: Screen("playlist/{playlistId}"){
+        fun createRoute(playlistId: Long): String{
+            return "playlist/$playlistId"
+        }
+    }
 }

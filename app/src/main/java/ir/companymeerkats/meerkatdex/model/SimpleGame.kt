@@ -7,5 +7,6 @@ data class SimpleGame(
     val imageCover: Int,
     val imageIcon:Int,
     val rating: Double,
-    val genres: List<String>
+    val genres: List<String>,
+    val platform: List<Platform>
 )
