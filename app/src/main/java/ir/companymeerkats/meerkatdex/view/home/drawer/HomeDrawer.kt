@@ -39,7 +39,7 @@ import ir.companymeerkats.meerkatdex.R
 fun HomeDrawer(
     selectedItem: String = "Home",
     onItemClick: (String) -> Unit = {},
-    onClose: () -> Unit = {}
+    onClose: () -> Unit
 ) {
 
     val colors = MaterialTheme.colorScheme

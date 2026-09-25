@@ -3,7 +3,6 @@ package ir.companymeerkats.meerkatdex.view.playlist
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 import androidx.compose.foundation.clickable
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
+
 @Composable
 fun GameCardPlaylist(
     game: SimpleGame,
@@ -115,7 +116,7 @@ fun GameCardPlaylist(
                             .forEach { genre ->
 
                                 Text(
-                                    text = genre,
+                                    text = genre.name,
                                     style = MaterialTheme.typography.labelSmall,
                                     color = colors.onSurfaceVariant,
                                     modifier = Modifier
@@ -146,24 +147,21 @@ fun GameCardPlaylist(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                game.platform
-                    .take(2)
-                    .forEach { platform ->
-
-                        Text(
-                            text = "${platform.name} • ",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = colors.onSurfaceVariant,
-                            maxLines = 1,
-                        )
-                    }
+                Text(
+                    text = game.platform
+                        .take(2)
+                        .joinToString(" • ") { it.name },
+                    style = MaterialTheme.typography.labelSmall,
+                    color = colors.onSurfaceVariant,
+                    maxLines = 1
+                )
                 Spacer(
                     modifier=Modifier.weight(1f)
                 )
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = null,
-                    tint = colors.primary,
+                    tint = Color(0xFFFFC107),
                     modifier = Modifier.size(16.dp)
                 )
 
@@ -172,7 +170,7 @@ fun GameCardPlaylist(
                 )
 
                 Text(
-                    text = game.rating.toString(),
+                    text = game.rating.get(0).rating,
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.Bold
                 )

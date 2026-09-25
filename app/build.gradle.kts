@@ -75,6 +75,8 @@ dependencies {
     implementation(libs.timber)
 //    material icon
     implementation(libs.androidx.compose.material.icons.extended)
+//    coil
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

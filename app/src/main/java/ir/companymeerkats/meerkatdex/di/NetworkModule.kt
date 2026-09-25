@@ -23,6 +23,9 @@ import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebGenreMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebPlatformMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebPublisherMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebRatingMapper
+import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebSimpleGameMapper
+import ir.companymeerkats.meerkatdex.model.network.web.mapper.request.RequestMapper
+import ir.companymeerkats.meerkatdex.model.network.web.model.WebSimpleGame
 import ir.companymeerkats.meerkatdex.viewModel.DeveloperViewModel
 import ir.companymeerkats.meerkatdex.viewModel.GameViewModel
 import ir.companymeerkats.meerkatdex.viewModel.GenreViewModel
@@ -116,11 +119,30 @@ class NetworkModule {
     }
     @Singleton
     @Provides
-    fun provideGameRepository(gameService: GameService,webGameMapper: WebGameMapper): GameRepository {
-        return GameRepository(gameService,webGameMapper)
+    fun provideSimpleGameMapper(
+        platformMapper: WebPlatformMapper,
+        genreMapper: WebGenreMapper,
+        ratingMapper: WebRatingMapper
+    ): WebSimpleGameMapper{
+        return WebSimpleGameMapper(platformMapper, genreMapper, ratingMapper)
+    }
+    @Singleton
+    @Provides
+    fun provideGameRepository(gameService: GameService,webGameMapper: WebGameMapper,
+                              webSimpleGameMapper: WebSimpleGameMapper,
+                              requestMapper: RequestMapper): GameRepository {
+        return GameRepository(gameService,webGameMapper,webSimpleGameMapper,requestMapper)
+    }
+//    filters
+
+    @Singleton
+    @Provides
+    fun provideFilterMapper(): RequestMapper{
+    return RequestMapper()
     }
 
 //    webService
+
     @Provides
     @Singleton
     fun provideWebService(retrofit: Retrofit): WebService {

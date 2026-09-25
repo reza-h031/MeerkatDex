@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,10 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ir.companymeerkats.meerkatdex.R
 import ir.companymeerkats.meerkatdex.model.Playlist
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +64,7 @@ fun PlaylistTopBar(
 
                 Text(
                     text = playlist.name,
-                    modifier = Modifier.padding(start = 12.dp)
+                    modifier = Modifier.padding(top=12.dp)
                 )
 
                 Row(
@@ -71,11 +75,13 @@ fun PlaylistTopBar(
                     Text(
                         text = playlist.description,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2,
+                        fontSize = 12.sp,
+                        lineHeight = 14.sp,
+                        fontWeight = FontWeight.Normal,
                         modifier = Modifier
-                            .padding(start = 8.dp)
                             .weight(1f)
+                            .padding(end = 10.dp)
                     )
 
                     Text(

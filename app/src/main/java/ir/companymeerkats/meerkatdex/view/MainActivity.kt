@@ -57,7 +57,7 @@ fun SetDataViewModelTest(modifier: Modifier = Modifier){
 
     val viewModel: GameViewModel = hiltViewModel()
 
-    val gameState by viewModel.gameState.collectAsState()
+    val gameState by viewModel.gameIdState.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.getGameById(1L)

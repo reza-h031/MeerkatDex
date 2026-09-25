@@ -1,5 +1,4 @@
-package ir.companymeerkats.meerkatdex.view.search
-
+package ir.companymeerkats.meerkatdex.view.game
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
@@ -13,29 +12,28 @@ import androidx.compose.runtime.Composable
 
 @ExperimentalMaterial3Api
 @Composable
-fun SearchTopBar(
+fun GameDetailTopBar (
     scrollBehavior: TopAppBarScrollBehavior,
     onBackClick:()-> Unit
-) {
-
+){
     TopAppBar(
-        navigationIcon = {
-            IconButton(
-                onClick = onBackClick
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
-                    contentDescription = "Back"
-                )
-            }
-        },
-
-        title = {
-            Text(
-                text = "Search Games"
+    navigationIcon = {
+        IconButton(
+            onClick = onBackClick
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBackIos,
+                contentDescription = "Back"
             )
-        },
+        }
+    },
 
-        scrollBehavior = scrollBehavior
+    title = {
+        Text(
+            text = "Game Detail"
+        )
+    },
+
+    scrollBehavior = scrollBehavior
     )
 }

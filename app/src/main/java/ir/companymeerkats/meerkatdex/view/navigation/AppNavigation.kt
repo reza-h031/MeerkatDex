@@ -35,6 +35,7 @@ import ir.companymeerkats.meerkatdex.view.playlist.PlaylistScreen
 import kotlinx.coroutines.launch
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import ir.companymeerkats.meerkatdex.view.about.AboutScreen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -58,8 +59,16 @@ fun AppNavigation(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            HomeDrawer()
-        }
+            HomeDrawer(
+                onClose ={
+                    scope.launch {
+                        drawerState.close()
+                    }
+                }
+
+            )
+        },
+        gesturesEnabled = false,
     ) {
     Scaffold(
         bottomBar = {
@@ -109,17 +118,35 @@ fun AppNavigation(
             }
 
             composable(Screen.Search.route) {
-                SearchScreen()
+                SearchScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    listDataSimpleTest = featuredGames
+                )
             }
 
             composable(
-                route = Screen.GameDetail.route
-            ) {
-                GameDetailScreen(
-//                    onBackClick = {
-//                        navController.popBackStack()
-//                    }
+                route = Screen.GameDetail.route,
+                arguments = listOf(
+                    navArgument("gameId") {
+                        type = NavType.LongType
+                    }
                 )
+            ) { backStackEntry ->
+
+                val gameId =
+                    backStackEntry.arguments?.getLong("gameId")
+
+                gameId?.let { id ->
+
+                    GameDetailScreen(
+                        gameId = id,
+                        onBackClick = {
+                            navController.popBackStack()
+                        }
+                    )
+                }
             }
             composable(
                 route = Screen.Playlist.route,
@@ -155,7 +182,11 @@ fun AppNavigation(
             }
 
             composable(Screen.More.route) {
-                MoreScreen()
+                AboutScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }

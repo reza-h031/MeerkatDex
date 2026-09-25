@@ -5,8 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import dagger.hilt.android.HiltAndroidApp
 import ir.companymeerkats.meerkatdex.model.GameRequirement
+import ir.companymeerkats.meerkatdex.model.Genre
 import ir.companymeerkats.meerkatdex.model.Platform
 import ir.companymeerkats.meerkatdex.model.Playlist
+import ir.companymeerkats.meerkatdex.model.Rating
 import ir.companymeerkats.meerkatdex.model.Requirement
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 import timber.log.Timber
@@ -58,8 +60,10 @@ class MeerkatDexApplication:Application() {
                 name = "Brawl Stars",
                 imageCover = R.drawable.brawl_stars,
                 imageIcon = R.drawable.brawl_stars_icon,
-                rating = 4.5,
-                genres = listOf("Action", "Strategy", "Multiplayer"),
+                rating = listOf(Rating(0,"4.5","","4.5","")),
+                genres = listOf(Genre(0,"Actoin"),
+                    Genre(1,"Strategy"),
+                    Genre(2,"Multiplayer")),
                 platform= platformList
             ),
 
@@ -68,8 +72,9 @@ class MeerkatDexApplication:Application() {
                 name = "Minecraft",
                 imageCover = R.drawable.minecraft,
                 imageIcon = R.drawable.minecraft_icon,
-                rating = 4.6,
-                genres = listOf("Adventure", "Sandbox"),
+                rating = listOf(Rating(0,"4.5","","4.5","")),
+                genres = listOf(Genre(0,"Adventure"),
+                    Genre(1,"Sandbox")),
                 platform= platformList
             ),
 
@@ -78,8 +83,9 @@ class MeerkatDexApplication:Application() {
                 name = "Genshin Impact",
                 imageCover = R.drawable.genshin_impact,
                 imageIcon = R.drawable.genshin_impact_icon,
-                rating = 4.4,
-                genres = listOf("RPG", "Adventure"),
+                rating = listOf(Rating(0,"4.5","","4.5","")),
+                genres = listOf(Genre(0,"RPG"),
+                    Genre(1,"Adventure")),
                 platform= platformList
             )
         )
@@ -88,8 +94,8 @@ class MeerkatDexApplication:Application() {
         return listOf(
             Playlist(
                 id = 0,
-                name ="Popular games",
-                description = "",
+                name ="\uD83D\uDD25Popular games",
+                description = "the most played and loved games by our community",
                 number=100,
                 games = featuredGames
             ),

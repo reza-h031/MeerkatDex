@@ -146,7 +146,7 @@ fun FeaturedGameCard(
                         .forEach { genre ->
 
                             Text(
-                                text = genre,
+                                text = genre.name,
                                 style = MaterialTheme.typography.labelSmall,
                                 color = Color.White,
                                 modifier = Modifier
@@ -194,7 +194,7 @@ fun FeaturedGameCard(
                     )
 
                     Text(
-                        text = game.rating.toString(),
+                        text = game.rating.get(0).rating,
                         style = MaterialTheme.typography.labelMedium,
                         color = Color.White
                     )

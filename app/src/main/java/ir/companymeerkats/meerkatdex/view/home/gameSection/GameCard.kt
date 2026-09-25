@@ -80,7 +80,7 @@ fun GameCard(
                 .forEach { genre ->
 
                     Text(
-                        text = genre,
+                        text = genre.name,
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White,
                         modifier = Modifier
@@ -122,7 +122,7 @@ fun GameCard(
             )
 
             Text(
-                text = game.rating.toString(),
+                text = game.rating.get(0).rating,
                 color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 11.sp
             )

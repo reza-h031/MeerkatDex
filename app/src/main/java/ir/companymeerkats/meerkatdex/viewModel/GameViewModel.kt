@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.companymeerkats.meerkatdex.model.Game
+import ir.companymeerkats.meerkatdex.model.SimpleGame
+import ir.companymeerkats.meerkatdex.model.filter.GameFilter
 import ir.companymeerkats.meerkatdex.model.network.repository.GameProvider
 import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,10 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GameViewModel @Inject  constructor(
-     val gameRepository: GameProvider
+     val gameProvider: GameProvider
 ):ViewModel (){
     val getGames: StateFlow<UiState<List<Game>>> =
-        gameRepository.getGames()
+        gameProvider.getGames()
             .map<List<Game>, UiState<List<Game>>>{
                 UiState.Success(it)
             }.onStart {
@@ -30,20 +32,50 @@ class GameViewModel @Inject  constructor(
             }.catch {
                 emit(UiState.Error(it.message?:"Unknown error"))
             }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState.Loading)
-    private val _gameState =
+    private val _gameIdState =
         MutableStateFlow<UiState<Game>>(UiState.Loading)
 
-    val gameState =
-        _gameState.asStateFlow()
+    val gameIdState =
+        _gameIdState.asStateFlow()
     fun getGameById(id:Long) {
         viewModelScope.launch {
-            _gameState.value = UiState.Loading
+            _gameIdState.value = UiState.Loading
 
             try {
-                val game = gameRepository.getGameById(id)
-                _gameState.value = UiState.Success(game)
+                val game = gameProvider.getGameById(id)
+                _gameIdState.value = UiState.Success(game)
             } catch (e: Exception) {
-                _gameState.value =
+                _gameIdState.value =
+                    UiState.Error(e.message ?: "Unknown error")
+            }
+        }
+    }
+    private val _gameFilterState =
+        MutableStateFlow<UiState<List<SimpleGame>>>(UiState.Loading)
+
+    val gameFilterState =
+        _gameFilterState.asStateFlow()
+
+    fun gameGamesFilter(query: String) {
+        if (query.isBlank()) return
+        viewModelScope.launch {
+            _gameFilterState.value = UiState.Loading
+
+            try {
+                gameProvider
+                    .getGamesByFilter(GameFilter(query))
+                    .collect { games ->
+
+                        _gameFilterState.value =
+                            if (games.isEmpty()) {
+                                UiState.Success(emptyList())
+                            } else {
+                                UiState.Success(games)
+                            }
+                    }
+
+            } catch (e: Exception) {
+                _gameFilterState.value =
                     UiState.Error(e.message ?: "Unknown error")
             }
         }
