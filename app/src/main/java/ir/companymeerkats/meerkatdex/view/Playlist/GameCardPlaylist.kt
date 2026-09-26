@@ -28,6 +28,7 @@ import ir.companymeerkats.meerkatdex.model.SimpleGame
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
+import timber.log.Timber
 
 @Composable
 fun GameCardPlaylist(
@@ -49,7 +50,6 @@ fun GameCardPlaylist(
         // ─────────────────────────────
         // Cover Image
         // ─────────────────────────────
-
         Image(
             painter = painterResource(game.imageCover),
             contentDescription = game.name,

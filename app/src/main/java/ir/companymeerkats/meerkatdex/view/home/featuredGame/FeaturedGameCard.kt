@@ -2,6 +2,7 @@ package ir.companymeerkats.meerkatdex.view.home.featuredGame
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,8 @@ import ir.companymeerkats.meerkatdex.model.SimpleGame
 @Composable
 fun FeaturedGameCard(
     game: SimpleGame,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick:()-> Unit
 ) {
 
     Box(
@@ -45,6 +47,7 @@ fun FeaturedGameCard(
             .clip(
                 RoundedCornerShape(20.dp)
             )
+            .clickable(onClick = onClick)
     ) {
 
         // ─────────────────────────────

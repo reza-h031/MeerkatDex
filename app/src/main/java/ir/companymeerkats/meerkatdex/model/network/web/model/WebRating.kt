@@ -8,10 +8,10 @@ data class WebRating(
     val id:Long,
     @SerializedName("source")
     val source:String,
-    @SerializedName("logo_source")
+    @SerializedName("logoSource")
     val logoSource:String,
     @SerializedName("rating")
     val rating:String,
-    @SerializedName("rating_count")
+    @SerializedName("ratingCount")
     val ratingCount:String
 ):Serializable

@@ -60,7 +60,10 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
                 item {
-                    FeaturedGamesSection(featuredGames=featuredGames)
+                    FeaturedGamesSection(
+                        featuredGames=featuredGames,
+                        onGameClick=onGameClick
+                    )
 
 
                 }
@@ -73,7 +76,8 @@ fun HomeScreen(
 
                     GameSection(
                         onClickSeeAll ={onPlaylistClick(playlist.id)},
-                        playlist = playlist
+                        playlist = playlist,
+                        onGameClick=onGameClick
                     )
                 }
                 item{

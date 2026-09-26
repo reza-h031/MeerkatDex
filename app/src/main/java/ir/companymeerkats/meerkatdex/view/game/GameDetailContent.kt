@@ -69,48 +69,68 @@ fun GameDetailContent(
         // Title + Rating
         item {
 
-            Column {
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                val iconImage=
+                    game.images.firstOrNull { it.type == "icon" }
+                iconImage?.let {
+                    AsyncImage(
+                        model = it.path,
+                        contentDescription = game.title,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(80.dp)
+                            .clip(
+                                RoundedCornerShape(16.dp)
+                            )                )
+                }
+                Column(
+                    modifier = Modifier.weight(1f) ){
 
-                Text(
-                    text = game.title,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-
-                Spacer(
-                    modifier = Modifier.height(6.dp)
-                )
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.tertiary,
-                        modifier = Modifier.size(18.dp)
+                    Text(
+                        text = game.title,
+                        style = MaterialTheme.typography.headlineSmall
                     )
 
                     Spacer(
-                        modifier = Modifier.width(4.dp)
+                        modifier = Modifier.height(6.dp)
                     )
 
-                    game.ratings.firstOrNull()?.let { rating ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
 
-                        Text(
-                            text = rating.rating,
-                            style = MaterialTheme.typography.labelLarge
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.tertiary,
+                            modifier = Modifier.size(18.dp)
                         )
 
                         Spacer(
-                            modifier = Modifier.width(5.dp)
+                            modifier = Modifier.width(4.dp)
                         )
 
-                        Text(
-                            text = "(${rating.ratingCount})",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        game.ratings.firstOrNull()?.let { rating ->
+
+                            Text(
+                                text = rating.rating,
+                                style = MaterialTheme.typography.labelLarge
+                            )
+
+                            Spacer(
+                                modifier = Modifier.width(5.dp)
+                            )
+
+                            Text(
+                                text = "(${rating.ratingCount})",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
                 }
             }

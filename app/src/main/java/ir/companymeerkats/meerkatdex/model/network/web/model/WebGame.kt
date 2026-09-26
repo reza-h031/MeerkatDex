@@ -17,7 +17,7 @@ data class WebGame(
     val title:String,
     @SerializedName("description")
     val description:String,
-    @SerializedName("release_date")
+    @SerializedName("releaseDate")
     val releaseDate:String,
     @SerializedName("developer")
     val developer: WebDeveloper,
@@ -27,9 +27,9 @@ data class WebGame(
     val website:String,
     @SerializedName("status")
     val status:String,
-    @SerializedName("platforms")
+    @SerializedName("platform")
     val platform: List<WebPlatform>,
-    @SerializedName("genres")
+    @SerializedName("genre")
     val genre: List <WebGenre>,
     @SerializedName("images")
     val images: List<WebGameImage>,

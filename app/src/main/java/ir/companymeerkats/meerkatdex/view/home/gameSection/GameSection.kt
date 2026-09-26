@@ -24,7 +24,8 @@ import ir.companymeerkats.meerkatdex.model.Playlist
 @Composable
 fun GameSection (
     onClickSeeAll:()-> Unit,
-    playlist: Playlist
+    playlist: Playlist,
+    onGameClick:(id:Long)-> Unit
 ){
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -65,7 +66,10 @@ fun GameSection (
             key = { game -> game.id }) { game ->
 
             GameCard(
-                game = game
+                game = game,
+                onClick = {
+                    onGameClick(game.id)
+                }
             )
         }
     }

@@ -15,7 +15,8 @@ import ir.companymeerkats.meerkatdex.model.SimpleGame
 @Composable
 fun FeaturedGamesSection(
     modifier: Modifier = Modifier,
-    featuredGames:List<SimpleGame>
+    featuredGames:List<SimpleGame>,
+    onGameClick:(Long)-> Unit
 ) {
     val pagerState = rememberPagerState(
         pageCount = {
@@ -40,7 +41,10 @@ fun FeaturedGamesSection(
             val game = featuredGames[page]
 
             FeaturedGameCard(
-                game = game
+                game = game,
+                onClick={
+                    onGameClick(game.id)
+                }
             )
         }
         // Indicator

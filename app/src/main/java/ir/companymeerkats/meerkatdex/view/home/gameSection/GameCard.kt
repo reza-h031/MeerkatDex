@@ -2,6 +2,7 @@ package ir.companymeerkats.meerkatdex.view.home.gameSection
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,8 +28,10 @@ import ir.companymeerkats.meerkatdex.model.SimpleGame
 
 @Composable
 fun GameCard(
-    game: SimpleGame
-) {
+    game: SimpleGame,
+    onClick: () -> Unit,
+
+    ) {
 
     Column(
         modifier = Modifier
@@ -37,6 +40,7 @@ fun GameCard(
             .background(
                 MaterialTheme.colorScheme.surface
             )
+            .clickable(onClick = onClick)
             .padding(bottom = 10.dp)
     ) {
 

@@ -45,8 +45,11 @@ class GameViewModel @Inject  constructor(
                 val game = gameProvider.getGameById(id)
                 _gameIdState.value = UiState.Success(game)
             } catch (e: Exception) {
-                _gameIdState.value =
-                    UiState.Error(e.message ?: "Unknown error")
+                e.printStackTrace()
+
+                _gameIdState.value = UiState.Error(
+                    e.stackTraceToString()
+                )
             }
         }
     }

@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ir.companymeerkats.meerkatdex.viewModel.GameViewModel
 import ir.companymeerkats.meerkatdex.viewModel.state.UiState
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,6 +72,7 @@ fun GameDetailScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
+                    Timber.tag("@testErrorDetail").e(state.message)
                     Text(
                         text = state.message,
                         color = MaterialTheme.colorScheme.error
@@ -79,7 +81,7 @@ fun GameDetailScreen(
             }
 
             is UiState.Success -> {
-
+                Timber.tag("@testSuccess").e(state.data.toString())
                 GameDetailContent(
                     game = state.data
                 )
