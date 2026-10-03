@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
 @ExperimentalMaterial3Api
 @Composable
 fun MeerkatDexApp(featuredGames:List<SimpleGame>,playlist:List<Playlist>) {
-    AppNavigation(featuredGames,playlist)
+    AppNavigation()
     Timber.tag("@testGetDataApplication").e(featuredGames.toString())
 }
 @Composable

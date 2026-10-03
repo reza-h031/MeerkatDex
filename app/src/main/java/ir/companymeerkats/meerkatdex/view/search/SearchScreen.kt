@@ -2,6 +2,7 @@ package ir.companymeerkats.meerkatdex.view.search
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -37,10 +39,12 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 fun SearchScreen (
     onBackClick:()-> Unit,
     viewModel: GameViewModel = hiltViewModel(),
-    listDataSimpleTest:List<SimpleGame>
 ){
     var query by remember {
         mutableStateOf("")
+    }
+    var hasSearched by remember {
+        mutableStateOf(false)
     }
     val gameFilterState by viewModel.gameFilterState
         .collectAsStateWithLifecycle()
@@ -61,18 +65,50 @@ fun SearchScreen (
                 val text = query.trim()
 
                 if (text.isNotEmpty()) {
+                    hasSearched = true
                     viewModel.gameGamesFilter(text)
                 }
             })
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-//        when (val state = gameFilterState) {
+        if (!hasSearched) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Search something"
+                )
+            }
+
+
+        } else {
+        when (val state = gameFilterState) {
+            UiState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is UiState.Success -> {
+
+                if (state.data.isEmpty()) {
+
+                    Text(
+                        text = "No games found"
+                    )
+
+                } else {
+
                     LazyColumn(
                         modifier = Modifier.fillMaxSize()
                     ) {
                         items(
-                            items = listDataSimpleTest,
+                            items = state.data,
                             key = { game -> game.id }
                         ) { game ->
 
@@ -82,42 +118,21 @@ fun SearchScreen (
                                 )
                         }
                     }
-//            UiState.Loading -> {
-//                CircularProgressIndicator()
-//            }
-//
-//            is UiState.Success -> {
-//
-//                if (state.data.isEmpty()) {
-//
-//                    Text(
-//                        text = "No games found"
-//                    )
-//
-//                } else {
-//
-//                    LazyColumn(
-//                        modifier = Modifier.fillMaxSize()
-//                    ) {
-//                        items(
-//                            items = state.data,
-//                            key = { game -> game.id }
-//                        ) { game ->
-//
-//                            Text(
-//                                text = game.name
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//
-//            is UiState.Error -> {
-//
-//                Text(
-//                    text = state.message
-//                )
-//            }
-//        }
+                }
+            }
+
+            is UiState.Error -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                Text(
+                    text = state.message
+                )
+            }
+            }
+        }
+
+    }
     }
 }

@@ -19,7 +19,7 @@ interface GameService {
     suspend fun getGameById(
         @Path("id") id: Long
     ): WebGame
-    @POST
+    @POST("games/filter")
     @Headers("Accept: application/json")
     suspend fun getGamesByFilter(@Body gameRequest: GameRequest): List<WebSimpleGame>
 

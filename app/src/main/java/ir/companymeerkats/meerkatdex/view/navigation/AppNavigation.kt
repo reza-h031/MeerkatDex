@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -26,7 +27,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import ir.companymeerkats.meerkatdex.model.Playlist
 import ir.companymeerkats.meerkatdex.view.home.drawer.HomeDrawer
@@ -36,14 +41,16 @@ import kotlinx.coroutines.launch
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import ir.companymeerkats.meerkatdex.view.about.AboutScreen
+import ir.companymeerkats.meerkatdex.viewModel.PlaylistViewModel
+import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 
 @ExperimentalMaterial3Api
 @Composable
 fun AppNavigation(
-    featuredGames:List<SimpleGame>,
-    playlist: List<Playlist>
+    viewModel: PlaylistViewModel = hiltViewModel(),
 ) {
-
+    val playlistIdState by viewModel.playlistIdState
+        .collectAsStateWithLifecycle()
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed
@@ -90,8 +97,6 @@ fun AppNavigation(
 
                 HomeScreen(
 
-                    featuredGames=featuredGames,
-                    playlist = playlist,
                     onMenuClick = {
                         scope.launch {
                             drawerState.open()
@@ -121,9 +126,7 @@ fun AppNavigation(
                 SearchScreen(
                     onBackClick = {
                         navController.popBackStack()
-                    },
-                    listDataSimpleTest = featuredGames
-                )
+                    })
             }
 
             composable(
@@ -158,27 +161,40 @@ fun AppNavigation(
             ) { backStackEntry ->
 
                 val playlistId =
-                    backStackEntry.arguments?.getLong("playlistId")
+                    backStackEntry.arguments!!.getLong("playlistId")
 
-                val selectedPlaylist =
-                    playlist.find { it.id == playlistId }
-
-                selectedPlaylist?.let { selectedPlaylist ->
-
-                    PlaylistScreen(
-                        playlist = selectedPlaylist,
-
-                        onBackClick = {
-                            navController.popBackStack()
-                        },
-
-                        onGameClick = { gameId ->
-                            navController.navigate(
-                                Screen.GameDetail.createRoute(gameId)
-                            )
-                        }
-                    )
+//                val selectedPlaylist =
+//                    playlist.find { it.id == playlistId }
+                LaunchedEffect(Unit) {
+                    viewModel.playlistById(playlistId)
                 }
+                when (val state=playlistIdState){
+                    UiState.Loading->{
+                        CircularProgressIndicator()
+
+                    }
+                    is UiState.Success->{
+                        PlaylistScreen(
+                            playlist = state.data,
+
+                            onBackClick = {
+                                navController.popBackStack()
+                            },
+
+                            onGameClick = { gameId ->
+                                navController.navigate(
+                                    Screen.GameDetail.createRoute(gameId)
+                                )
+                            }
+                        )
+                    }
+                    is UiState.Error->{
+                        Text(
+                            text = state.message
+                        )
+                    }
+                }
+
             }
 
             composable(Screen.More.route) {

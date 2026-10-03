@@ -28,6 +28,8 @@ import ir.companymeerkats.meerkatdex.model.SimpleGame
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
+import androidx.core.R
+import coil3.compose.AsyncImage
 import timber.log.Timber
 
 @Composable
@@ -50,8 +52,9 @@ fun GameCardPlaylist(
         // ─────────────────────────────
         // Cover Image
         // ─────────────────────────────
-        Image(
-            painter = painterResource(game.imageCover),
+
+        AsyncImage(
+            model = game.imageCover,
             contentDescription = game.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -77,10 +80,8 @@ fun GameCardPlaylist(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
-                // Game icon
-                Image(
-                    painter = painterResource(game.imageIcon),
+                AsyncImage(
+                    model = game.imageIcon,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

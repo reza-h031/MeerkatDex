@@ -11,6 +11,7 @@ import ir.companymeerkats.meerkatdex.model.Playlist
 import ir.companymeerkats.meerkatdex.model.Rating
 import ir.companymeerkats.meerkatdex.model.Requirement
 import ir.companymeerkats.meerkatdex.model.SimpleGame
+import ir.companymeerkats.meerkatdex.model.SimplePlatform
 import timber.log.Timber
 
 @HiltAndroidApp
@@ -52,41 +53,41 @@ class MeerkatDexApplication:Application() {
         )
     }
     fun createDataForTestListSimpleGame():List<SimpleGame>{
-        val platformList:List<Platform> = createDataForTestListPlatform()
+        val platformList: Array<SimplePlatform> = arrayOf(SimplePlatform(1,"",""))
 
         return listOf(
             SimpleGame(
                 id = 1,
                 name = "Brawl Stars",
-                imageCover = R.drawable.brawl_stars,
-                imageIcon = R.drawable.brawl_stars_icon,
+                imageCover = "",
+                imageIcon = "",
                 rating = listOf(Rating(0,"4.5","","4.5","")),
                 genres = listOf(Genre(0,"Actoin"),
                     Genre(1,"Strategy"),
                     Genre(2,"Multiplayer")),
-                platform= platformList
+                platform= platformList.toList()
             ),
 
             SimpleGame(
                 id = 2,
                 name = "Minecraft",
-                imageCover = R.drawable.minecraft,
-                imageIcon = R.drawable.minecraft_icon,
+                imageCover = "",
+                imageIcon = "",
                 rating = listOf(Rating(0,"4.5","","4.5","")),
                 genres = listOf(Genre(0,"Adventure"),
                     Genre(1,"Sandbox")),
-                platform= platformList
+                platform= platformList.toList()
             ),
 
             SimpleGame(
                 id = 3,
                 name = "Genshin Impact",
-                imageCover = R.drawable.genshin_impact,
-                imageIcon = R.drawable.genshin_impact_icon,
+                imageCover = "",
+                imageIcon = "",
                 rating = listOf(Rating(0,"4.5","","4.5","")),
                 genres = listOf(Genre(0,"RPG"),
                     Genre(1,"Adventure")),
-                platform= platformList
+                platform= platformList.toList()
             )
         )
     }

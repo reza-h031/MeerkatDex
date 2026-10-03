@@ -12,6 +12,8 @@ import ir.companymeerkats.meerkatdex.model.network.repository.GenreProvider
 import ir.companymeerkats.meerkatdex.model.network.repository.GenreRepository
 import ir.companymeerkats.meerkatdex.model.network.repository.PlatformProvider
 import ir.companymeerkats.meerkatdex.model.network.repository.PlatformRepository
+import ir.companymeerkats.meerkatdex.model.network.repository.PlaylistProvider
+import ir.companymeerkats.meerkatdex.model.network.repository.PlaylistRepository
 import ir.companymeerkats.meerkatdex.model.network.repository.PublisherProvider
 import ir.companymeerkats.meerkatdex.model.network.repository.PublisherRepository
 
@@ -43,4 +45,8 @@ abstract class RepositoryModule {
     abstract fun bindPublisherProvider(
         repository: PublisherRepository
     ): PublisherProvider
+    @Binds
+    abstract fun bindPlaylistProvider(
+        repository: PlaylistRepository
+    ): PlaylistProvider
 }

@@ -1,17 +1,20 @@
 package ir.companymeerkats.meerkatdex.model.network.web.mapper
 
 import ir.companymeerkats.meerkatdex.model.SimpleGame
+import ir.companymeerkats.meerkatdex.model.network.web.MediaUrlResolver
 import ir.companymeerkats.meerkatdex.model.network.web.model.WebSimpleGame
 import java.util.stream.Collectors
 
 class WebSimpleGameMapper(
-    val platformMapper: WebPlatformMapper,
+    val platformMapper: WebSimplePlatformMapper,
     val genreMapper: WebGenreMapper,
-    val ratingMapper: WebRatingMapper
+    val ratingMapper: WebRatingMapper,
+    private val mediaUrlResolver: MediaUrlResolver
 ) {
     fun toSimpleGame(webSimpleGame: WebSimpleGame): SimpleGame{
      return SimpleGame(webSimpleGame.id,webSimpleGame.name
-         , webSimpleGame.imageCover,webSimpleGame.imageIcon
+         , mediaUrlResolver.resolve(webSimpleGame.imageCover).orEmpty()
+         , mediaUrlResolver.resolve(webSimpleGame.imageIcon).orEmpty()
          , webSimpleGame.rating.stream().map (ratingMapper::toRating).collect(Collectors.toList())
          ,webSimpleGame.genres.stream().map (genreMapper::toGenre).collect(Collectors.toList())
          ,webSimpleGame.platform.stream().map  (platformMapper::toPlatform).collect(Collectors.toList())

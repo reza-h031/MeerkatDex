@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 
 @Composable
@@ -46,14 +48,14 @@ fun GameCardSearch (
             .background(colors.surface),
         verticalAlignment = Alignment.CenterVertically)
      {
-         Image(
-             painter = painterResource(game.imageIcon),
-             contentDescription = null,
+
+         AsyncImage(
+             model = game.imageIcon,
+             contentDescription = game.name,
              contentScale = ContentScale.Crop,
              modifier = Modifier
                  .size(60.dp)
                  .clip(RoundedCornerShape(12.dp))
-
          )
          Spacer(
              modifier = Modifier.width(10.dp)

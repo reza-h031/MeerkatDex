@@ -12,13 +12,13 @@ data class WebSimpleGame (
     @SerializedName("title")
     val name: String,
     @SerializedName("image_cover")
-    val imageCover: Int,
+    val imageCover: String,
     @SerializedName("image_icon")
-    val imageIcon:Int,
+    val imageIcon:String,
     @SerializedName("ratings")
     val rating: List<WebRating>,
     @SerializedName("genres")
     val genres: List<WebGenre>,
     @SerializedName("platforms")
-    val platform: List<WebPlatform>
+    val platform: List<WebSimplePlatform>
 )

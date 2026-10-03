@@ -11,19 +11,24 @@ import ir.companymeerkats.meerkatdex.model.network.repository.DeveloperRepositor
 import ir.companymeerkats.meerkatdex.model.network.repository.GameRepository
 import ir.companymeerkats.meerkatdex.model.network.repository.GenreRepository
 import ir.companymeerkats.meerkatdex.model.network.repository.PlatformRepository
+import ir.companymeerkats.meerkatdex.model.network.repository.PlaylistRepository
 import ir.companymeerkats.meerkatdex.model.network.repository.PublisherRepository
 import ir.companymeerkats.meerkatdex.model.network.web.GameService
 import ir.companymeerkats.meerkatdex.model.network.web.GenresService
+import ir.companymeerkats.meerkatdex.model.network.web.MediaUrlResolver
 import ir.companymeerkats.meerkatdex.model.network.web.PlatformsService
+import ir.companymeerkats.meerkatdex.model.network.web.PlaylistsService
 import ir.companymeerkats.meerkatdex.model.network.web.PublisherService
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebGameImageMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebGameMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebGameRequirementMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebGenreMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebPlatformMapper
+import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebPlaylistMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebPublisherMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebRatingMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebSimpleGameMapper
+import ir.companymeerkats.meerkatdex.model.network.web.mapper.WebSimplePlatformMapper
 import ir.companymeerkats.meerkatdex.model.network.web.mapper.request.RequestMapper
 import ir.companymeerkats.meerkatdex.model.network.web.model.WebSimpleGame
 import ir.companymeerkats.meerkatdex.viewModel.DeveloperViewModel
@@ -81,6 +86,11 @@ class NetworkModule {
     }
     @Singleton
     @Provides
+    fun providePlatformSimple(): WebSimplePlatformMapper{
+        return WebSimplePlatformMapper()
+    }
+    @Singleton
+    @Provides
     fun providePlatformRepository(platformService: PlatformsService,webPlatformMapper: WebPlatformMapper): PlatformRepository {
         return PlatformRepository(platformService,webPlatformMapper)
     }
@@ -120,11 +130,12 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideSimpleGameMapper(
-        platformMapper: WebPlatformMapper,
+        platformMapper: WebSimplePlatformMapper,
         genreMapper: WebGenreMapper,
-        ratingMapper: WebRatingMapper
+        ratingMapper: WebRatingMapper,
+        mediaUrlResolver: MediaUrlResolver
     ): WebSimpleGameMapper{
-        return WebSimpleGameMapper(platformMapper, genreMapper, ratingMapper)
+        return WebSimpleGameMapper(platformMapper, genreMapper, ratingMapper,mediaUrlResolver)
     }
     @Singleton
     @Provides
@@ -139,6 +150,24 @@ class NetworkModule {
     @Provides
     fun provideFilterMapper(): RequestMapper{
     return RequestMapper()
+    }
+//    playlist
+    @Provides
+    fun providePlaylistService(webService: WebService): PlaylistsService {
+        return webService.getPlaylistsService()
+    }
+    @Singleton
+    @Provides
+    fun providePlaylistMapper(webSimpleGameMapper: WebSimpleGameMapper): WebPlaylistMapper{
+        return WebPlaylistMapper(webSimpleGameMapper)
+    }
+    @Singleton
+    @Provides
+    fun providePlaylistRepository(
+         playlistsService: PlaylistsService,
+         webPlaylistMapper: WebPlaylistMapper
+    ): PlaylistRepository{
+        return PlaylistRepository(playlistsService,webPlaylistMapper)
     }
 
 //    webService

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 
 @Composable
@@ -44,8 +46,22 @@ fun GameCard(
             .padding(bottom = 10.dp)
     ) {
 
-        Image(
-            painter = painterResource(game.imageIcon),
+//        Image(
+//            painter = painterResource(game.imageIcon),
+//            contentDescription = game.name,
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(140.dp)
+//                .clip(
+//                    RoundedCornerShape(
+//                        topStart = 14.dp,
+//                        topEnd = 14.dp
+//                    )
+//                )
+//        )
+        AsyncImage(
+            model = game.imageIcon,
             contentDescription = game.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier

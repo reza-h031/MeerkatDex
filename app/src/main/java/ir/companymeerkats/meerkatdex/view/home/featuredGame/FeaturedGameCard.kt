@@ -31,6 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import ir.companymeerkats.meerkatdex.model.SimpleGame
 
 @Composable
@@ -54,15 +55,20 @@ fun FeaturedGameCard(
         // Game Image
         // ─────────────────────────────
 
-        Image(
-            painter = painterResource(
-                id = game.imageCover
-            ),
+//        Image(
+//            painter = painterResource(
+//                id = game.imageCover
+//            ),
+//            contentDescription = game.name,
+//            modifier = Modifier.fillMaxSize(),
+//            contentScale = ContentScale.Crop
+//        )
+        AsyncImage(
+            model = game.imageCover,
             contentDescription = game.name,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
-
 
         // ─────────────────────────────
         // Dark Gradient
