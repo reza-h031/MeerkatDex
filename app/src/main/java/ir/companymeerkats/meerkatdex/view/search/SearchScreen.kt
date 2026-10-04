@@ -38,6 +38,7 @@ import ir.companymeerkats.meerkatdex.viewModel.state.UiState
 @Composable
 fun SearchScreen (
     onBackClick:()-> Unit,
+    onGameClick:(id:Long)-> Unit,
     viewModel: GameViewModel = hiltViewModel(),
 ){
     var query by remember {
@@ -114,7 +115,9 @@ fun SearchScreen (
 
                             GameCardSearch(
                                 game,
-                                onClick = {},
+                                onClick = {
+                                    onGameClick(game.id)
+                                }
                                 )
                         }
                     }

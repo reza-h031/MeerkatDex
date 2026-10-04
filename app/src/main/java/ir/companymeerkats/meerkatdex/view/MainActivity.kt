@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         val application: MeerkatDexApplication = application as MeerkatDexApplication
         setContent {
             MeerkatDexTheme {
-                MeerkatDexApp(application.featuredGames,application.playlist)
+                MeerkatDexApp()
             }
         }
     }
@@ -48,9 +48,8 @@ class MainActivity : ComponentActivity() {
 //}
 @ExperimentalMaterial3Api
 @Composable
-fun MeerkatDexApp(featuredGames:List<SimpleGame>,playlist:List<Playlist>) {
+fun MeerkatDexApp() {
     AppNavigation()
-    Timber.tag("@testGetDataApplication").e(featuredGames.toString())
 }
 @Composable
 fun SetDataViewModelTest(modifier: Modifier = Modifier){
